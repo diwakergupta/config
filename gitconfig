@@ -1,0 +1,11 @@
+[user]
+	name = Diwaker Gupta
+	email = diwaker@floatingsun.net
+[github]
+	user = diwakergupta
+	token = cc9b2efc7d29349255171a19fc724767
+[color]
+	ui = auto
+[alias]
+	d = diff --no-prefix
+	st = diff --name-status
