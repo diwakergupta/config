@@ -1,0 +1,102 @@
+*manpageview.txt*	Man Page Viewer			Jun 08, 2004
+
+Author:  Charles E. Campbell, Jr.  <cec@NgrOyphSon.gPsfAc.nMasa.gov>
+	  (remove NOSPAM from Campbell's email first)
+
+==============================================================================
+1. Contents				*manpageview* *manpageview-contents*
+
+	1. Contents.................: |manpageview-contents|
+	2. ManPageView Options......: |manpageview-options|
+	3. ManPageView Usage........: |manpageview-usage|
+	4. ManPageView History......: |manpageview-history|
+
+==============================================================================
+
+2. ManPageView Options					*manpageview-options*
+
+	g:manpageview_options : extra options that will be passed on when
+	                        invoking the man command
+	  examples:
+	            let g:manpageview_options= "-P 'cat -'"
+	            let g:manpageview_options= "-c"
+	            let g:manpageview_options= "-Tascii"
+	
+	g:manpageview_winopen : may take on one of six values:
+
+	   "only"    man page will become sole window.
+	             Side effect: All windows' contents will be saved first!  (windo w)
+	             Use :q to terminate the manpage and restore the window setup.
+	             Note that mksession is used for this option, hence the
+	             +mksession configure-option is required.
+	   "hsplit"  man page will appear in a horizontally          split window (default)
+	   "vsplit"  man page will appear in a vertically            split window
+	   "hsplit=" man page will appear in a horizontally & evenly split window
+	   "vsplit=" man page will appear in a vertically   & evenly split window
+	   "reuse"   man page will re-use current window.  Use <ctrl-o> to return.
+"                    (for the reuse option, thanks go to Alan Schmitt)
+	
+	g:manpageview_server : for WinNT; uses rsh to read manpage remotely
+	g:manpageview_user   : use given server (host) and username
+	  examples:
+	            let g:manpageview_server= "somehostname"
+	            let g:manpageview_user  = "username"
+
+==============================================================================
+
+3. ManPageView Usage					*manpageview-usage*
+
+	:Man topic
+	:Man topic booknumber
+	:Man booknumber topic
+	:Man topic(booknumber)
+	:Man      -- will restore position prior to use of :Man
+	             (only for g:manpageview_winopen == "only")
+	Put cursor on topic, press "K" while in normal mode
+
+	If your "man" command requires options, you may specify them
+	with the g:manpageview_options variable in your <.vimrc>.
+	
+
+==============================================================================
+
+3. ManPageView History					*manpageview-history*
+
+	Thanks go to the various people who have contributed changes,
+	pointed out problems, and made suggestions!
+
+	7 : * when a manpageview window is exit'd, it will be wiped out
+	      so that it doesn't clutter the buffer list
+	    * when g:manpageview_winopen was "reuse", the manpage would
+	      reuse the window, even when it wasn't a manpage window.
+	      Manpageview will now use hsplit if the window was marked
+	      "modified"; otherwise, the associated buffer will be marked
+	      as "hidden" (so that its still available via the buffer list)
+	6 : * Erik Remmelzwal provided a fix to the g:manpageview_server
+	      support for NT
+	    * implemented Erik's suggestion to re-use manpage windows
+	    * Nathan Huizinga pointed out, <cWORD> was picking up too much for
+	      the K map. <cword> is now used
+	    * Denilson F de Sa suggested that the man-page window be set as
+	      readonly and nonmodifiable
+
+	5 : includes g:manpageview_winmethod option (only, hsplit, vsplit)
+
+	4 : Erik Remmelzwaal suggested including, for the benefit of NT users,
+	    a command to use rsh to read the manpage remotely.  Set
+	    g:manpageview_server to hostname  (in your <.vimrc>)
+	    g:manpageview_user   to username
+
+	3 : * ignores (...) if it contains commas or double quotes.  elides
+	      any commas, colons, and semi-colons at end
+
+	    * g:manpageview_options supported
+
+	2 : saves current session prior to invoking man pages :Man    will
+	    restore session.  Requires +mksession for this new command to
+	    work.
+
+	1 : the epoch
+
+==============================================================================
+vim:tw=78:ts=8:ft=help

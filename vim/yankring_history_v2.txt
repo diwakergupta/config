@@ -1,0 +1,100 @@
+:${TC}/bin,v
+export TC=/home/beehive/toolchain/x86_64-unknown-linux-gnu/3.0,V
+# check the window size after each command and, if necessary,# update the values of LINES and COLUMNS.shopt -s checkwinsize,V
+ ,v
+ 4. All tickets assigned against Engineers for the upcoming release ,V
+cannot,v
+http://www.gadgets.in/content/view/164/49/orderid/22949/,v
+engineering triage ,v
+"Engineering triage",v
+triage,v
+Engineering ,v
+",v
+Eng Triage,v
+Eng. Triage.,v
+Engineering Triage,v
+ such tickets must be created as sub-tasks of an existing feature ticket. This feature ticket should have originally been assigned to the Engineer by Eng. Triage.,V
+Engineers ,v
+really ,v
+JIRA,v
+This is a DRAFT, still under revision'',v
+T,v
+F,v
+A,v
+R,v
+D,v
+c,v
+i,v
+f,v
+t,v
+n,v
+e,v
+s,v
+u,v
+d,v
+o,v
+r,v
+h,v
+entire ,v
+SIGCOMM 2006).,v
+bad sentence ,v
+work,v
+OnlinePartitionSplitting.beforePropagatingReplicatedTables",v
+N,v
+ u to Shrinker.,V
+  to Shrinker.,V
+- The choice of benchmark was interested. But I think several interesting  experiments can be constructed with some really simple, predictable workloads  that exercise memory in a predictable manner.,v
+  Several works cited in the related works section,V
+- The choice of benchmark was interested. But I think several interesting  experiments can be constructed with some really simple, predictable workloads  that exercise memory in a predictable manner.,V
+- Section 2 (Architecture) begins with "... present the design ..." --  architecture and design can mean,V
+,V
+- The abstract should make the benefits of Shrinker obvious up front. Right now,  it just mentions percentage improvements in bandwidth and migration time. What  do these percentages translate to? In terms of user experience, or dollar  value? What are the absolute savings?,V
+- The abstract should make the benefits of Shrinker obvious up front. Right now,  it just mentions percentage improvements in bandwidth and migration time. What  do these percentages translate to? In terms of user experience, or dollar  value? What are the absolute savings?,V
+@inproceedings{osdi02:vmware,  publisher = "USENIX",	author = "Carl A. Waldspurger",	ee = "http://www.usenix.org/events/osdi02/tech/waldspurger.html",	booktitle = "Proceedings of the Symposium on Operating System Design and Implementation",	title = "Memory Resource Management in VMware ESX Server",	month = "December",	year = 2002,	monthno = 12,	bibsource = "DBLP, http://dblp.uni-trier.de",	address = "Boston, Massachusetts"}@inproceedings{usenix04:monkey,  publisher = "USENIX",	author = {Yu-Chung Cheng and Urs H{\"o}lzle and Neal Cardwell and Stefan Savage and Geoffrey M. Voelker},	ee = "http://www.usenix.org/publications/library/proceedings/usenix04/tech/general/cheng.html",	booktitle = "Proceedings of the USENIX Annual Technical Conference",	title = "Monkey See, Monkey Do: A Tool for TCP Tracing and Replaying",	month = "June",	year = 2004,	monthno = 6,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "87-98",	address = "Boston, Massachusetts"},V
+% Note that the APA style requres case changes% in article titles. The following does not% change cases. If you perfer it, uncomment the% following and comment out the above.,V
+http://www.cs.cornell.edu/people/egs/crosstex/,v
+DBLP:conf/osdi/BarhamDIM04,,v
+DBLP:conf/sosp/AguileraMWRM03,,v
+DBLP:conf/infocom/PanPPW03,,v
+DBLP:conf/osdi/VahdatYWMKCB02,,v
+DBLP:conf/osdi/Waldspurger02,,v
+DBLP:conf/usenix/ChengHCSV04,,v
+@inproceedings{usenix04:monkey,  publisher = "USENIX",	author = {Yu-Chung Cheng and Urs H{\"o}lzle and Neal Cardwell and Stefan Savage and Geoffrey M. Voelker},	ee = "http://www.usenix.org/publications/library/proceedings/usenix04/tech/general/cheng.html",	booktitle = "Proceedings of the USENIX Annual Technical Conference",	title = "Monkey See, Monkey Do: A Tool for TCP Tracing and Replaying",	month = "June",	year = 2004,	monthno = 6,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "87-98",	address = "Boston, Massachusetts"},V
+@inproceedings{osdi02:vmware,  publisher = "USENIX",	author = "Carl A. Waldspurger",	ee = "http://www.usenix.org/events/osdi02/tech/waldspurger.html",	booktitle = "Proceedings of the Symposium on Operating System Design and Implementation",	title = "Memory Resource Management in VMware ESX Server",	month = "December",	year = 2002,	monthno = 12,	bibsource = "DBLP, http://dblp.uni-trier.de",	address = "Boston, Massachusetts"},V
+@inproceedings{swing:usenix08,  author = "Kashi Vishwanath and Amin Vahdat",  title = "Evaluating Distributed Systems: Does Background Traffic Matter?",  booktitle = "Proceedings of the USENIX Annual Technical Conference",  month = "June",  year = 2008},V
+\DeclareOption{acmtocs}{  \typeout{}  \typeout{Using ACM, TOCS's option: 2009/02/07 by Diwaker Gupta}  \typeout{}  \global\@acmjacmfalse    \global\@acmtoclfalse  \global\@acmtocstrue  \global\@acmtodaesfalse  \global\@acmtodsfalse  \global\@acmtogsfalse  \global\@acmtomsfalse  \global\@acmtoplasfalse  \def\@journalName{ACM Transactions on Computer Systems}  \def\@journalNameShort{tocs}          \def\@permissionCodeOne{0734-2071}  \def\@permissionCodeTwo{0700} },V
+http://www.acm.org/publications/latex_style/,v
+ * Learn: Videos, presentations, tutorials?,v
+1529-3785} ,v
+  \global\@acmtocstrue,V
+false,v
+Computational,v
+@inproceedings{DBLP:conf/stoc/Aaronson04a,	author = "S. Aaronson",	ee = "http://doi.acm.org/10.1145/1007352.1007358",	booktitle = "Proceedings of the ACM Symposium on Theory of Computing",	title = {Lower Bounds for Local Search by Quantum Arguments},	month = "June",	year = 2004,	monthno = 6,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "465-474",	address = "Chicago, Illinois"}@inproceedings{DBLP:conf/stoc/Aaronson04,	author = "S. Aaronson",	ee = "http://doi.acm.org/10.1145/1007352.1007378",	booktitle = "Proceedings of the ACM Symposium on Theory of Computing",	title = {Multilinear Formulas and Skepticism of Quantum Computing},	month = "June",	year = 2004,	monthno = 6,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "118-127",	address = "Chicago, Illinois"}@inproceedings{DBLP:conf/stoc/Aaronson05,	author = "S. Aaronson",	ee = "http://doi.acm.org/10.1145/1060590.1060686",	booktitle = "Proceedings of the ACM Symposium on Theory of Computing",	title = {The Complexity of Agreement},	month = "May",	year = 2005,	monthno = 5,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "634-643",	address = "Baltimore, Maryland"},V
+@inproceedings{DBLP:conf/stoc/Aaronson02,	author = "S. Aaronson",	ee = "http://doi.acm.org/10.1145/509907.509999",	booktitle = "Proceedings of the ACM Symposium on Theory of Computing",	title = {Quantum Lower Bound for the Collision Problem},	month = "May",	year = 2002,	monthno = 5,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "635-642",	address = {{Montr\'eal}, Canada}},V
+@inproceedings{DBLP:conf/infocom/AanenBV92,	title = {Cell Loss Performance of the Gauss Atm Switch.},	booktitle = "Proceedings of the IEEE International Conference on Computer Communications",	author = "E. Aanen and J.~L. van den Berg and R.~J.~F. de Vries",	month = "May",	year = 1992,	monthno = 5,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "717-726",	address = "Florence, Italy"},V
+@inproceedings{DBLP:conf/infocom/AadC01,	title = {Differentiation Mechanisms for Ieee 802.11.},	ee = "http://www.ieee-infocom.org/2001/paper/214.ps",	booktitle = "Proceedings of the IEEE International Conference on Computer Communications",	author = "I. Aad and C. Castelluccia",	month = "April",	year = 2001,	monthno = 4,	bibsource = "DBLP, http://dblp.uni-trier.de",	pages = "209-218",	address = "Anchorage, Alaska"},V
+  author ="VMware",  year = 2008,,V
+  author = {USA Today},  year = 2006,,V
+  year = 2008,  author = "NS-2",,V
+  author = "tcpdump.org",  year = 2008,,V
+  author = "Panasas",  year = 2006,,V
+  author = "Panasas",  year = 2008,,V
+  author = "Linux Foundation",  year = 2008,,V
+  year = 2008,  author = "BitMover",,V
+  year = 2008,  author = "Lawerence Berkeley National Laboratory",,V
+.,v
+w,v
+  author = "{Linux Community}",  year = 2008,,V
+  author = "Don Capps",  year = 2006,,V
+  author = "Xen Bugzilla",  year = 2008,,V
+  author = {Slashdot},  year = 2007,,V
+  year = 2008,  author = "Xen Community",,V
+  author = "Bram Cohen",  year = 2008,,V
+  author = "IDC",  year = 2007,,V
+@misc{ncr,  key = "National Cyber Range",  title = {National Cyber Range},  howpublished = {\url{http://www.darpa.mil/sto/ia/ncr.html}},  year = 2009,},V
+@Misc{ncr,  key = "National Cyber Range",  title = "National Cyber Range",  howpublished = {\url{http://www.darpa.mil/sto/ia/ncr.html}},  year = 2009,},V
+A lot of details about the experimental setup seem missing here.,v
+- ,V
+- Out of the three contributions listed, IMHO a part of the third contribution  (abstraction slicing) is probably more significant than the rest. It would be  nice if the wording reflects the actual weight of the contributions.,V
+follows,v
+tum bay area aao ,v
