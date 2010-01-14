@@ -4,3 +4,17 @@ snippet hdr
 	Primary Owner  : ${1}
 	Secondary Owner: ${2}
 	${3}
+
+snippet ===
+	=============================================================================
+
+snippet cmt
+	Reviewed by                   : ${1}
+	Ticket resolved               : ${2}
+	Smoke Test Run? (Y/N)         : ${3:Y}
+	Backport required? (Y/N)      : ${4:N}
+	Tests Run (Unit/E2E)          : ${5}
+	Tests Added (Unit/E2E/Stress) : ${6}
+	Upgrade (Y/N)                 : ${7:N}
+	Toolchain Dependency (Y/N)    : ${8:N}
+	Other Improvements Done       : ${9}
