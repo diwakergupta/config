@@ -59,8 +59,39 @@ set textwidth=80
 
 " set coptions
 
-" I have _no_ idea what all this is supposed to do
-set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,l0,gs,hs,p0,is,t0,+0,c3,C0,/0,(0,u0,U1,w0,W0,m0,M0,j1,)20,*30
+" >s: Normal indent is 1xshiftwidth
+" e0: End-of-line braces don't introduce extra indent
+" n0: blocks without braces are no different than blocks with braces
+" f0: opening brace on new line goes in the first column
+" {0: opening braces inside other braces have regular indent
+" }0: closing braces are in the same column as the maching opening brace
+" ^0: prevailing indent inside braces is standard indent
+" :s: case labels are indented by shiftwidth
+" =s: statements occuring after a case label are indented by shiftwidth
+" l1: align with the case label, not the contained statements
+" b0: align the break like regular statements inside a case
+" g1: indent C++ scope decalarations by 1 space
+" h0.5s: statements after scope are indented by half shiftwidth (rounded up)
+" ps: K&R style param declarations are indented by shiftwidth
+" t0: return types are not indented
+" i2s: base class decaralation is indented by 2xshiftwidth if on new line
+" +s: continuation lines have shiftwidth extra indent
+" cs: indent comment lines by shiftwidth if there is nothing else to align with
+" C0: no additional indent for comment lines
+" /0: no additional indent for comment lines
+" (0: line up with first white space char after unclosed brace
+" u0: same as above, one level deeper
+" U1: do not ignore indenting introduced by opening brace
+" w0: clean indenting for closing brace
+" Ws: do the right thing when arguments start on new line after brace
+" m0: line up closing brace correctly
+" M0: line up closing brace correctly
+" j1: indent anonymous classes in Java correctly
+" )40: search 40 lines for unclosed parenthesis
+" *40: search 40 lines for unclosed comments
+" #1: recogize # comments
+set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,l1,b0,g1,h0.5s,ps,t0,i2s,+s,cs
+set cinoptions+=C0,/0,(0,u0,U1,w0,Ws,m0,M0,j1,)40,*40,#1
 
 " Ditto here
 set indentkeys+=*<CR>
