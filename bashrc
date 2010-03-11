@@ -83,18 +83,16 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -A'
-#alias l='ls -CF'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -111,11 +109,8 @@ export EDITOR
 alias '..'='cd ..'
 alias '...'='cd ../..'
 alias rm='rm -i';
-alias ls='ls -F --color'
-alias egrep='egrep --color=tty -d skip'
-alias fgrep='fgrep --color=tty -d skip'
-alias grep='grep --color=tty -d skip'
 alias sane='echo -e "\\033c";tput is2;stty sane line 1'
+alias ssh='TERM=xterm ssh'
 
 export PATH=.:/usr/lib/git-core/:~/local/bin:/sbin:/usr/sbin:$PATH
 
