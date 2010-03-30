@@ -1,8 +1,8 @@
 ScriptID SourceID Filename
 -------------------------------------
 915 9224 AsNeeded.vim
-365 12267 bash-support.zip
-42 12104 bufexplorer.zip
+365 12381 bash-support.zip
+42 12363 bufexplorer.zip
 987 11878 DoxygenToolkit.vim
 1501 5458 LargeFile
 39   8196 matchit.zip
@@ -25,6 +25,6 @@ ScriptID SourceID Filename
 670 8073 visincr.vim
 2140 10321 xoria256.vim
 1453 9492 cecscope.vim
-90 12274 vcscommand.vim
+90 12736 vcscommand.vim
 2540 11006 snipMate.vim
-2441 12009 pyflakes-vim.zip
+2441 12555 pyflakes-vim.zip

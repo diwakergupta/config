@@ -794,6 +794,7 @@ function! s:VCSCommit(bang, message)
 		silent put ='VCS: ----------------------------------------------------------------------'
 		$
 		setlocal nomodified
+		silent do VCSCommand User VCSBufferCreated
 	catch
 		call s:ReportError(v:exception)
 		return -1
@@ -818,22 +819,16 @@ endfunction
 
 " Function: s:VCSFinishCommit(logMessageList, originalBuffer) {{{2
 function! s:VCSFinishCommit(logMessageList, originalBuffer)
-	let shellSlashBak = &shellslash
+	let messageFileName = tempname()
+	call writefile(a:logMessageList, messageFileName)
 	try
-		set shellslash
-		let messageFileName = tempname()
-		call writefile(a:logMessageList, messageFileName)
-		try
-			let resultBuffer = s:ExecuteVCSCommand('Commit', [messageFileName])
-			if resultBuffer < 0
-				return resultBuffer
-			endif
-			return s:MarkOrigBufferForSetup(resultBuffer)
-		finally
-			call delete(messageFileName)
-		endtry
+		let resultBuffer = s:ExecuteVCSCommand('Commit', [messageFileName])
+		if resultBuffer < 0
+			return resultBuffer
+		endif
+		return s:MarkOrigBufferForSetup(resultBuffer)
 	finally
-		let &shellslash = shellSlashBak
+		call delete(messageFileName)
 	endtry
 endfunction
 
@@ -906,7 +901,7 @@ function! s:VCSVimDiff(...)
 				if exists('s:vimDiffSourceBuffer')
 					call s:WipeoutCommandBuffers(s:vimDiffSourceBuffer, 'vimdiff')
 				endif
-				let resultBuffer = s:plugins[vcsType][1].Review([a:1])
+				let resultBuffer = s:VCSReview(a:1)
 				if resultBuffer < 0
 					echomsg 'Can''t open revision ' . a:1
 					return resultBuffer
@@ -917,7 +912,7 @@ function! s:VCSVimDiff(...)
 				" If no split method is defined, cheat, and set it to vertical.
 				try
 					call s:OverrideOption('VCSCommandSplit', orientation)
-					let resultBuffer = s:plugins[vcsType][1].Review([a:2])
+					let resultBuffer = s:VCSReview(a:2)
 				finally
 					call s:OverrideOption('VCSCommandSplit')
 				endtry
@@ -936,9 +931,9 @@ function! s:VCSVimDiff(...)
 					call s:OverrideOption('VCSCommandSplit', orientation)
 					try
 						if(a:0 == 0)
-							let resultBuffer = s:plugins[vcsType][1].Review([])
+							let resultBuffer = s:VCSReview()
 						else
-							let resultBuffer = s:plugins[vcsType][1].Review([a:1])
+							let resultBuffer = s:VCSReview(a:1)
 						endif
 					finally
 						call s:OverrideOption('VCSCommandSplit')
