@@ -1,11 +1,24 @@
 [user]
 	name = Diwaker Gupta
 	email = diwaker@floatingsun.net
+[color]
+   ui = auto
+[alias]
+   cp = cherry-pick -e
+   d = diff --no-prefix
+   st = diff --name-status
 [github]
 	user = diwakergupta
-	token = cc9b2efc7d29349255171a19fc724767
-[color]
-	ui = auto
-[alias]
-	d = diff --no-prefix
-	st = diff --name-status
+	token = 6d60ad41a170f15bcac3e32ef8b9a12a
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[diff]
+	tool = vimdiff
+[svn]
+	rmdir = true
+[rerere]
+	enabled = true
