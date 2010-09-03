@@ -1,12 +1,29 @@
 " DoxygenToolkit.vim
 " Brief: Usefull tools for Doxygen (comment, author, license).
-" Version: 0.2.7
-" Date: 12/06/09
+" Version: 0.2.11
+" Date: 2009/08/26
 " Author: Mathias Lorente
 "
 " TODO: add automatically (option controlled) in/in out flags to function
 "       parameters
 " TODO: (Python) Check default paramareters defined as list/dictionnary/tuple
+"
+" Note: Remove trailing blank characters where they are not needed.
+"
+" Note: 'extern' keyword added in list of values to ignore for return type.
+"
+" Note: Correct bugs related to templates and add support for throw statement
+"       (many thanks to Dennis Lubert):
+"   - Template parameter of different type from class and typename are
+"     recognized.
+"   - Indentation mistake while detecting template.
+"   - New option are available: g:DoxygenToolkit_throwTag_pre and
+"     g:DoxygenToolkit_throwTag_post
+"
+" Note: Add support for documentation of template parameters.
+"       Thanks to Dennis (plasmahh) and its suggestions.
+"   - New option are available: g:DoxygenToolkit_templateParamTag_pre
+"     and g:DoxygenToolkit_templateParamTag_post
 "
 " Note: Solve almost all compatibility problem with c/c++ IDE
 "
@@ -227,8 +244,8 @@
 
 " Verify if already loaded
 "if exists("loaded_DoxygenToolkit")
-"	echo 'DoxygenToolkit Already Loaded.'
-"	finish
+" echo 'DoxygenToolkit Already Loaded.'
+" finish
 "endif
 let loaded_DoxygenToolkit = 1
 "echo 'Loading DoxygenToolkit...'
@@ -252,6 +269,12 @@ endif
 if !exists("g:DoxygenToolkit_briefTag_post")
   let g:DoxygenToolkit_briefTag_post = ""
 endif
+if !exists("g:DoxygenToolkit_templateParamTag_pre")
+  let g:DoxygenToolkit_templateParamTag_pre = "@tparam "
+endif
+if !exists("g:DoxygenToolkit_templateParamTag_post")
+  let g:DoxygenToolkit_templateParamTag_post = ""
+endif
 if !exists("g:DoxygenToolkit_paramTag_pre")
   let g:DoxygenToolkit_paramTag_pre = "@param "
 endif
@@ -260,6 +283,12 @@ if !exists("g:DoxygenToolkit_paramTag_post")
 endif
 if !exists("g:DoxygenToolkit_returnTag")
   let g:DoxygenToolkit_returnTag = "@return "
+endif
+if !exists("g:DoxygenToolkit_throwTag_pre")
+  let g:DoxygenToolkit_throwTag_pre = "@throw " " @exception is also valid
+endif
+if !exists("g:DoxygenToolkit_throwTag_post")
+  let g:DoxygenToolkit_throwTag_post = ""
 endif
 if !exists("g:DoxygenToolkit_blockHeader")
   let g:DoxygenToolkit_blockHeader = ""
@@ -343,7 +372,7 @@ if !exists("g:DoxygenToolkit_compactDoc")
 endif
 
 " Necessary '\<' and '\>' will be added to each item of the list.
-let s:ignoreForReturn = ['template', 'explicit', 'inline', 'static', 'virtual', 'void\([[:blank:]]*\*\)\@!', 'const', 'volatile', 'struct']
+let s:ignoreForReturn = ['template', 'explicit', 'inline', 'static', 'virtual', 'void\([[:blank:]]*\*\)\@!', 'const', 'volatile', 'struct', 'extern']
 if !exists("g:DoxygenToolkit_ignoreForReturn")
   let g:DoxygenToolkit_ignoreForReturn = s:ignoreForReturn[:]
 else
@@ -517,6 +546,7 @@ function! <SID>DoxygenCommentFunc()
     let l:endDocPattern    = ';\|{\|\%([^:]\zs:\ze\%([^:]\|$\)\)'
     let l:commentPattern   = '\%(/*\)\|\%(//\)\'
     let l:templateParameterPattern = "<[^<>]*>"
+    let l:throwPattern = '.*\<throw\>[[:blank:]]*(\([^()]*\)).*' "available only for 'cpp' type
 
     let l:classPattern     = '\<class\>[[:blank:]]\+\zs'.l:someNameWithNamespacePattern.'\ze.*\%('.l:endDocPattern.'\)'
     let l:structPattern    = '\<struct\>[[:blank:]]\+\zs'.l:someNameWithNamespacePattern.'\ze[^(),]*\%('.l:endDocPattern.'\)'
@@ -539,7 +569,7 @@ function! <SID>DoxygenCommentFunc()
   let l:count            = 1
   let l:endDocFound      = 0
 
-  let l:doc = { "type": "", "name": "None", "params": [], "returns": "" }
+  let l:doc = { "type": "", "name": "None", "params": [], "returns": "" , "templates": [], "throws": [] }
 
   " Mark current line for future use
   mark d
@@ -566,13 +596,28 @@ function! <SID>DoxygenCommentFunc()
 
   " Look for the end of the function/class/... to document
   " TODO does not work when function/class/... is commented out!
+  let l:readError = "Cannot reach end of function/class/... declaration!"
   let l:count = 0
+  let l:throwCompleted = 0
+  let l:endReadPattern = l:endDocPattern
   while( l:endDocFound == 0 && l:count < g:DoxygenToolkit_maxFunctionProtoLines )
     let l:lineBuffer = s:RemoveComments( l:lineBuffer )
     " Valid only for cpp. For Python it must be 'class ...:' or 'def ...:' or
     " '... EOL'.
-    if( match( l:lineBuffer, l:endDocPattern ) != -1 )
-      let l:endDocFound = 1
+    if( match( l:lineBuffer, l:endReadPattern ) != -1 )
+      " Look for throw statement at the end
+      if( s:CheckFileType() == "cpp" && l:throwCompleted == 0 )
+        " throw statement can have already been read or can be on next line
+        if( match( l:lineBuffer.' '.getline( line ( "." ) + 1 ), '.*\<throw\>.*' ) != -1 )
+          let l:endReadPattern = l:throwPattern
+          let l:throwCompleted = 1
+          let l:readError = "Cannot reach end of throw statement"
+        else
+          let l:endDocFound = 1
+        endif
+      else
+        let l:endDocFound = 1
+      endif
       continue
     endif
     exec "normal j"
@@ -585,7 +630,7 @@ function! <SID>DoxygenCommentFunc()
       " Fall here when only comments have been found.
       call s:WarnMsg( "Nothing to document here!" )
     else
-      call s:WarnMsg( "Cannot reach end of function/class/... declaration!" )
+      call s:WarnMsg( l:readError )
     endif
     exec "normal `d" 
     return
@@ -594,6 +639,8 @@ function! <SID>DoxygenCommentFunc()
   " Trim the buffer
   let l:lineBuffer = substitute( l:lineBuffer, "^[[:blank:]]*\|[[:blank:]]*$", "", "g" )
 
+  " Check whether it is a template definition
+  call s:ParseFunctionTemplateParameters( l:lineBuffer, l:doc )
   " Remove any template parameter.
   if( s:CheckFileType() == "cpp" )
     while( match( l:lineBuffer, l:templateParameterPattern ) != -1 )
@@ -637,6 +684,9 @@ function! <SID>DoxygenCommentFunc()
       else
         let l:doc.type = 'function'
         call s:ParseFunctionParameters( l:lineBuffer, l:doc )
+        if( l:throwCompleted == 1 )
+          call s:ParseThrowParameters( l:lineBuffer, l:doc, l:throwPattern )
+        endif
       endif
  
     " This is an attribute for Python
@@ -694,9 +744,16 @@ function! <SID>DoxygenCommentFunc()
   else
     let s:insertEmptyLine = 1
   endif
+  for param in l:doc.templates
+    if( s:insertEmptyLine == 1 )
+      exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
+      let s:insertEmptyLine = 0
+    endif
+    exec "normal o".s:interCommentTag.g:DoxygenToolkit_templateParamTag_pre.g:DoxygenToolkit_templateParamTag_post.param
+  endfor
   for param in l:doc.params
     if( s:insertEmptyLine == 1 )
-      exec "normal o".s:interCommentTag
+      exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
       let s:insertEmptyLine = 0
     endif
     exec "normal o".s:interCommentTag.g:DoxygenToolkit_paramTag_pre.g:DoxygenToolkit_paramTag_post.param
@@ -705,9 +762,25 @@ function! <SID>DoxygenCommentFunc()
   " Returned value
   if( l:doc.returns == "yes" )
     if( g:DoxygenToolkit_compactDoc != "yes" )
-      exec "normal o".s:interCommentTag
+      exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
     endif
     exec "normal o".s:interCommentTag.g:DoxygenToolkit_returnTag
+  endif
+
+  " Exception (throw) values (cpp only)
+  if( len( l:doc.throws ) > 0 )
+    if( g:DoxygenToolkit_compactDoc =~ "yes" )
+      let s:insertEmptyLine = 0
+    else
+      let s:insertEmptyLine = 1
+    endif
+    for param in l:doc.throws
+      if( s:insertEmptyLine == 1 )
+        exec "normal o".substitute( s:interCommentTag, "[[:blank:]]*$", "", "" )
+        let s:insertEmptyLine = 0
+      endif
+      exec "normal o".s:interCommentTag.g:DoxygenToolkit_throwTag_pre.g:DoxygenToolkit_throwTag_post.param
+    endfor
   endif
 
   " End (if any) of documentation block.
@@ -760,7 +833,7 @@ function! s:StartDocumentationBlock()
   if( s:startCommentTag != s:interCommentTag )
     "exec "normal O".s:startCommentTag
     exec "normal O".strpart( s:startCommentTag, 0, 1 )
-    exec "normal A".strpart( s:startCommentTag, 1 )
+    exec "normal A".substitute( strpart( s:startCommentTag, 1 ), "[[:blank:]]*$", "", "" )
     let l:insertionMode = "o"
   else
     let l:insertionMode = "O"
@@ -825,6 +898,7 @@ function! s:ParseFunctionParameters( lineBuffer, doc )
   " all the function definition to know whether a value is returned or not.
   if( s:CheckFileType() == "cpp" )
     let l:functionBuffer = strpart( a:lineBuffer, 0, l:paramPosition )
+    " Remove unnecessary elements
     for ignored in g:DoxygenToolkit_ignoreForReturn
       let l:functionBuffer = substitute( l:functionBuffer, '\<'.ignored.'\>', '', 'g' )
     endfor
@@ -839,7 +913,7 @@ function! s:ParseFunctionParameters( lineBuffer, doc )
   let l:parametersBuffer = strpart( a:lineBuffer, l:paramPosition + 1 )
   " Remove trailing closing bracket and everything that follows and trim.
   if( s:CheckFileType() == "cpp" )
-    let l:parametersBuffer = substitute( l:parametersBuffer, ')[^)]*\%(;\|{\|\%([^:]:\%([^:]\|$\)\)\).*', '', '' )
+    let l:parametersBuffer = substitute( l:parametersBuffer, ')[^)]*\%(;\|{\|\%([^:]:\%([^:]\|$\)\)\|\%(\<throw\>\)\).*', '', '' )
   else
     let l:parametersBuffer = substitute( l:parametersBuffer, ')[^)]*:.*', '', '' )
   endif
@@ -941,6 +1015,38 @@ function! s:ParseParameter( param )
   return l:paramName
 endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Extract template parameter name for function/class/method
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:ParseFunctionTemplateParameters( lineBuffer, doc )
+  if( match( a:lineBuffer, '^[[:blank:]]*template' ) == 0 )
+    let l:firstIndex = stridx( a:lineBuffer, '<' )
+    if( l:firstIndex != -1 )
+      let l:lastIndex = stridx( a:lineBuffer, '>', l:firstIndex + 1 )
+      if( l:lastIndex != -1 )
+        " Keep only template parameters
+        let l:parameters = strpart( a:lineBuffer, l:firstIndex + 1, l:lastIndex - l:firstIndex - 1)
+        " Split on separator (,)
+        let l:params = split( l:parameters, '\,' )
+        for param in l:params
+          " Extract template parameter name
+          let l:paramName = split( split( param, '=' )[0], '[[:blank:]]' )[-1]
+          call add( a:doc.templates, l:paramName )
+        endfor
+      endif
+    endif
+  endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Extract throw parameter name
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:ParseThrowParameters( lineBuffer, doc, throwPattern )
+  let l:throwParams = substitute( a:lineBuffer, a:throwPattern, '\1', "" )
+  for param in split( l:throwParams, "," )
+    call add( a:doc.throws, substitute( param, '[[:blank:]]', '', "" ) )
+  endfor
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Define start/end documentation format and backup generic parameters.

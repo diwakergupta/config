@@ -2,10 +2,9 @@
 "
 " BZR extension for VCSCommand.
 "
-" Version:       VCS development
 " Maintainer:    Bob Hiestand <bob.hiestand@gmail.com>
 " License:
-" Copyright (c) 2009 Bob Hiestand
+" Copyright (c) Bob Hiestand
 "
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to
@@ -239,7 +238,7 @@ endfunction
 " Function: s:bzrFunctions.Status(argList) {{{2
 function! s:bzrFunctions.Status(argList)
   let options = ['-S']
-  if len(a:argList) == 0
+  if len(a:argList) != 0
     let options = a:argList
   endif
   return s:DoCommand(join(['status'] + options, ' '), 'status', join(options, ' '), {})
