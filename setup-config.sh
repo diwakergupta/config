@@ -8,4 +8,3 @@ ln -sf $CONF_DIR/gvimrc $HOME/.gvimrc
 ln -sf $CONF_DIR/vim $HOME/.vim
 ln -sf $CONF_DIR/gitconfig $HOME/.gitconfig
 ln -sf $CONF_DIR/tmux.conf $HOME/.tmux.conf
-ln -sf $CONF_DIR/eclimrc $HOME/.eclimrc
