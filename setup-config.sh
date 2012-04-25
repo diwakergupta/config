@@ -7,7 +7,8 @@ else
     CONF_DIR=$(readlink -f $(dirname $0))
 fi
 
-ln -sf $CONF_DIR/bashrc $HOME/.bashrc
+ln -sf $CONF_DIR/bash-it $HOME/.bash_it
+ln -sf $CONF_DIR/bash_profile $HOME/.bash_profile
 ln -sf $CONF_DIR/vimrc $HOME/.vimrc
 ln -sf $CONF_DIR/gvimrc $HOME/.gvimrc
 ln -sf $CONF_DIR/vim $HOME/.vim
