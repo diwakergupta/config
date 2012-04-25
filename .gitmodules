@@ -13,3 +13,6 @@
 [submodule "vim/bundle/minibufexpl"]
 	path = vim/bundle/minibufexpl
 	url = https://github.com/fholgado/minibufexpl.vim.git
+[submodule "bash-it"]
+	path = bash-it
+	url = https://github.com/revans/bash-it.git
