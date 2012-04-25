@@ -6,3 +6,7 @@
 	email = diwaker@maginatics.com
 [color]
 	ui = auto
+[alias]
+	cp = cherry-pick -e
+	d = diff --no-prefix
+	st = diff --name-status
