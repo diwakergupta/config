@@ -4,3 +4,5 @@
 [user]
 	name = Diwaker Gupta
 	email = diwaker@maginatics.com
+[color]
+	ui = auto
