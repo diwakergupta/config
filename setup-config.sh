@@ -1,6 +1,11 @@
 #!/bin/bash
 
-CONF_DIR=$(readlink -f $(dirname $0))
+if [[ "$(uname)" == "Darwin" ]]
+then
+    CONF_DIR=$(greadlink -f $(dirname $0))
+else
+    CONF_DIR=$(readlink -f $(dirname $0))
+fi
 
 ln -sf $CONF_DIR/bashrc $HOME/.bashrc
 ln -sf $CONF_DIR/vimrc $HOME/.vimrc
