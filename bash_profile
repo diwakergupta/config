@@ -26,5 +26,8 @@ export NGINX_PATH='/opt/nginx'
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
+# Add other useful PATHs.
+export PATH=.:/usr/local/bin:/usr/local/sbin:~/local/bin:$PATH
+
 # Load Bash It
 source $BASH_IT/bash_it.sh
