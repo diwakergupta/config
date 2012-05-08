@@ -88,7 +88,7 @@ set nohls
 
 " This is our status line
 " Buffername, Filename, Mode, Type, Tag, Line, Col, Position
-" set statusline=[%02n]\ %t\ %(\[%M%R%H]%y%)%=\ [%{Tlist_Get_Tagname_By_Line()}]\ %4l,%02c%2V\ %L,%P%*
+set statusline=[%02n]\ %t\ %(\[%M%R%H]%y%)%=\ [%{Tlist_Get_Tagname_By_Line()}]\ %4l,%02c%2V\ %L,%P%*
 
 " Always display a status line at the bottom of window.
 set laststatus=2
