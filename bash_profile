@@ -20,11 +20,7 @@ export GIT_HOSTING='git@git.domain.com'
 export EDITOR="vim"
 export GIT_EDITOR='vim'
 
-# Set the path nginx
-export NGINX_PATH='/opt/nginx'
-
-# Don't check mail when opening terminal.
-unset MAILCHECK
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home
 
 # Add other useful PATHs.
 export PATH=.:/usr/local/bin:/usr/local/sbin:~/local/bin:$PATH
