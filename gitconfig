@@ -10,3 +10,4 @@
 	cp = cherry-pick -e
 	d = diff --no-prefix
 	st = diff --name-status
+	r = review -y
