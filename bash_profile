@@ -23,7 +23,7 @@ export GIT_HOSTING='git@git.domain.com'
 export EDITOR="vim"
 export GIT_EDITOR='vim'
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Add other useful PATHs.
 export PATH=.:/usr/local/bin:/usr/local/sbin:~/local/bin:$PATH
