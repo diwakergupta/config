@@ -11,3 +11,11 @@
 	d = diff --no-prefix
 	st = diff --name-status
 	r = review -y -R
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = no
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = no
