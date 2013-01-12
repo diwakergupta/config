@@ -1,5 +1,5 @@
 [github]
-	token = cc9b2efc7d29349255171a19fc724767
+	token = e891800829bcf0ea8632a2131624a5f8f7c10ab1
 	user = diwakergupta
 [user]
 	name = Diwaker Gupta
@@ -19,3 +19,5 @@
 	tool = vimdiff
 [mergetool]
 	prompt = no
+[push]
+	default = simple
